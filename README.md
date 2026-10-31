@@ -1,332 +1,277 @@
-Smart Supply Chain Tracking System
-A supply chain management and tracking application built with
-Flutter, Spring Boot, and MySQL. The project is designed to
-connect suppliers, warehouses, customers, administrators, and delivery
-users through a shared system for product management, inventory
-visibility, order processing, and delivery tracking.
-Project status: This README describes the features and
-architecture discussed during development. Verify the current source
-code, API routes, and deployment configuration before presenting every
-feature as production-ready.
+# 🏗️ Hazari App – Labour Management System
 
-Table of Contents
-- Overview
-- Objectives
-- Technology Stack
-- Main Modules
-- Key Workflows
-- System Architecture
-- Project Structure
-- Prerequisites
-- Getting Started
-  - Backend Setup
-  - Flutter Setup
-- Configuration
-- Maps and Location
-- Docker Deployment
-- Testing
-- Security Notes
-- Future Enhancements
-- Contributing
-- License
-Overview
-The Smart Supply Chain Tracking System helps manage the movement of
-products from suppliers to warehouses and then to customers. It provides
-role-based screens and backend services for product registration, stock
-supply, inventory monitoring, customer ordering, and delivery-location
-updates.
+A full-stack Labour Management and Attendance System developed using **Java, Spring Boot, Flutter, and MySQL**. The application helps contractors manage labourers, track daily attendance, handle leave requests, and manage labour-related information.
 
-The Flutter application communicates with a Spring Boot REST API. The
-backend applies business rules and stores application data in a MySQL
-database.
-Objectives
-- Digitize supplier, warehouse, customer, administration, and delivery
-  workflows.
-- Maintain product and warehouse stock information.
-- Allow suppliers to register products and supply stock to warehouses.
-- Show customers products that have available inventory.
-- Validate stock during order processing.
-- Support delivery-location updates and map-based tracking.
-- Provide barcode-based product lookup and basic inventory summaries.
-Technology Stack
-  Layer                   Technology              Purpose
-  Frontend                Flutter / Dart          Mobile and web user
-interface
+## 📌 Project Overview
 
-  Backend                 Java, Spring Boot 3.3.x REST APIs and business
-logic
+Hazari App is designed to simplify labour management by providing separate dashboards for contractors and labourers. It connects a Flutter frontend with a Spring Boot REST API and a MySQL database.
 
-  Database                MySQL                   Persistent application
-data
+The system aims to improve attendance management, communication, and transparency between contractors and labourers.
 
-  ORM                     Spring Data JPA /       Database access and
-Hibernate               entity mapping
+## ✨ Features
 
-  Security                Spring Security, JWT    Authentication and
-protected API access
+### 👷 Labour Features
+- User registration and login.
+- Labour dashboard.
+- Daily attendance check-in and check-out.
+- Attendance history.
+- Camera-based attendance photo capture.
+- GPS location capture during attendance.
+- Leave request submission.
+- Leave request history.
 
-  Maps                    flutter_map,          Map display and
-latlong2,             location visualization
-OpenStreetMap           
+### 🏢 Contractor Features
+- Contractor registration and login.
+- Contractor dashboard.
+- Add and manage labourers.
+- View labour details.
+- Monitor daily attendance.
+- View pending leave requests.
+- Approve or reject leave requests.
+- View payment summary.
 
-  Device location         geolocator            Device GPS access
+### 🔐 Authentication and Security
+- Spring Security integration.
+- JWT-based authentication implementation.
+- Password encryption using BCrypt.
+- Role-based user identification.
 
-  Backend build           Maven                   Dependency management
-and packaging
+## 🛠️ Technology Stack
 
-  Source control          Git / GitHub            Version control and
-collaboration
-Optional                Docker / Docker Compose Local multi-service
-containerization                                deployment
-Main Modules
-1. Admin
-- Manage and monitor system operations.
-- View product and inventory information.
-- Review supplier stock-supply history.
-- View available operational summaries and analytics supported by the
-  backend.
-2. Supplier
-- Register a new product with its name, price, and optional barcode.
-- Select a destination warehouse.
-- Enter the quantity to supply.
-- Submit stock-supply information for inventory recording.
-3. Warehouse
-- View warehouse-related inventory information.
-- Monitor available product quantities.
-- Support stock handling and fulfilment workflows implemented by the
-  application.
-4. Customer
-- Browse the available product catalogue.
-- View product and stock information returned by the backend.
-- Place orders through the application.
-- Follow delivery progress when tracking data is available.
-5. Delivery
-- Access delivery-related functionality.
-- Share device GPS coordinates when location permission is granted.
-- Support customer-facing delivery tracking through location updates.
-Key Workflows
-Supplier → Warehouse → Customer
-1. The supplier enters a product name, price, and optional barcode.
-2. The supplier selects a warehouse and enters the quantity.
-3. The backend creates the product and records the stock-supply
-   operation.
-4. Warehouse inventory reflects the supplied stock.
-5. The customer catalogue can display products with available stock.
-6. The customer can place an order, subject to backend stock
-   validation.
-Order Processing
-The backend is intended to validate available inventory during order
-placement. Stock checks and order updates should be performed on the
-server, using transactional database operations where required, to
-reduce the risk of overselling.
-Delivery Tracking
-1. The delivery device obtains its location after the user grants
-   permission.
-2. The Flutter application sends location coordinates to the backend.
-3. The backend stores location updates associated with the relevant
-   delivery/order.
-4. The customer tracking screen can display available location
-   information on a map.
-Barcode Lookup and Inventory Summary
-The application includes barcode lookup functionality and a basic
-seven-day run-rate estimate discussed during development. The run-rate
-estimate is a simple calculation, not a trained machine-learning model.
-System Architecture
-+-------------------------------+
-|       Flutter Application     |
-| Admin | Supplier | Warehouse  |
-| Customer | Delivery           |
-+---------------+---------------+
-                |
-                | HTTP / JSON
-                v
-+-------------------------------+
-|       Spring Boot REST API    |
-| Controllers | Services        |
-| Security / JWT | Repositories |
-+---------------+---------------+
-                |
-                | JPA / Hibernate
-                v
-+-------------------------------+
-|          MySQL Database       |
-| Users | Products | Inventory  |
-| Orders | Supply History       |
-| Delivery Locations            |
-+-------------------------------+
-Project Structure
-Place both projects inside one parent folder:
-Smart-Supply-Chain/
-├── smart_supply_chain_app/
-│   ├── lib/
-│   ├── web/
-│   ├── pubspec.yaml
-│   └── ...
+| Technology | Purpose |
+|---|---|
+| Java 17 | Backend programming |
+| Spring Boot 3.2.1 | REST API development |
+| Spring Security | Authentication and security |
+| JWT | Token-based authentication |
+| Hibernate / JPA | Database operations |
+| MySQL | Database |
+| Flutter | Frontend development |
+| Dart | Flutter programming language |
+| Camera Plugin | Attendance photo capture |
+| Geolocator | GPS location |
+| Maven | Backend dependency management |
+
+## 🏛️ System Architecture
+
+```text
+             Flutter Application
+                     |
+          ------------------------
+          |                      |
+    Labour Dashboard      Contractor Dashboard
+          |                      |
+          ------------------------
+                     |
+                  ApiService
+                     |
+                REST APIs
+                     |
+             Spring Boot Backend
+                     |
+          ------------------------
+          |          |           |
+      Controller   Service   Security
+          |          |           |
+          ------------------------
+                     |
+              Spring Data JPA
+                     |
+                  MySQL
+```
+
+## 📂 Project Structure
+
+```text
+Hazari-App/
 │
-├── smart-supply-chain-backend/
+├── backend/
 │   ├── src/
 │   │   └── main/
-│   │       ├── java/
+│   │       ├── java/com/hazari/
+│   │       │   ├── config/
+│   │       │   ├── controller/
+│   │       │   ├── dto/
+│   │       │   ├── entity/
+│   │       │   ├── repository/
+│   │       │   └── service/
+│   │       │
 │   │       └── resources/
-│   ├── pom.xml
-│   └── ...
+│   │           └── application.yml
+│   │
+│   └── pom.xml
 │
-├── README.md
-└── .gitignore
-The actual directory names in your repository may differ. Update the
-commands below if you use different names.
-Prerequisites
+├── frontend/
+│   ├── lib/
+│   │   ├── models/
+│   │   ├── screens/
+│   │   ├── services/
+│   │   ├── widgets/
+│   │   └── main.dart
+│   │
+│   └── pubspec.yaml
+│
+├── docs/
+│   └── PROJECT_DOCUMENTATION.docx
+│
+└── README.md
+```
+
+## 🗄️ Database Entities
+
+The project contains the following main entities:
+
+| Entity | Description |
+|---|---|
+| User | Stores login credentials and user roles |
+| Contractor | Stores contractor information |
+| Labour | Stores labourer information |
+| Attendance | Stores daily attendance records |
+| Leave | Stores leave requests and their status |
+| Payment | Stores payment-related records |
+
+## 🔄 Main Application Workflows
+
+### 1. User Authentication
+- Users log in using their credentials.
+- Backend validates the credentials.
+- JWT token is generated after successful authentication.
+- User role determines the dashboard.
+
+### 2. Attendance Management
+- Labourer opens the attendance screen.
+- Captures an attendance photo.
+- Retrieves GPS coordinates.
+- Checks in and checks out.
+- Attendance information is stored in MySQL.
+
+### 3. Leave Management
+- Labourer submits a leave request.
+- Contractor views pending requests.
+- Contractor approves or rejects the request.
+- Leave status is updated.
+
+### 4. Labour Management
+- Contractor adds labourers.
+- Labour records are associated with contractors.
+- Contractor can view associated labour information.
+
+## ⚙️ Installation and Setup
+
+### Prerequisites
+
 Install the following tools:
-- Git
-- Visual Studio Code
+
+- JDK 17
+- MySQL Server
+- MySQL Workbench
+- Maven
 - Flutter SDK
-- Java JDK compatible with the backend
-  configuration (development logs showed Java 21)
-- Maven or the Maven Wrapper if included
-- MySQL Community Server
-- Optional: Docker
-  Desktop
-Getting Started
-Clone the repository:
-git clone https://github.com/YOUR_USERNAME/Smart-Supply-Chain.git
-cd Smart-Supply-Chain
-Replace YOUR_USERNAME with the GitHub account that owns the
-repository.
-Backend Setup
-1. Open a terminal in the backend directory:
-   cd smart-supply-chain-backend
-2. Create a MySQL database. For example:
-   CREATE DATABASE smart_supply_chain;
-3. Configure the database connection in
-   src/main/resources/application.properties or through environment
-   variables. Example values:
-   spring.datasource.url=jdbc:mysql://localhost:3306/smart_supply_chain
-   spring.datasource.username=YOUR_DB_USERNAME
-   spring.datasource.password=YOUR_DB_PASSWORD
-4. Configure the JWT signing secret using a secure local configuration
-   or environment variable. Do not commit real secrets.
-5. Start the backend:
-   mvn spring-boot:run
-The development configuration discussed for this project used port
-8080. Confirm the active port in your configuration.
-Flutter Setup
-1. Open a second terminal in the Flutter directory:
-   cd smart_supply_chain_app
-2. Install dependencies:
-   flutter pub get
-3. Configure the API base URL for your target:
-   - Android emulator: use the host address reachable from the
-     emulator (commonly 10.0.2.2 for an Android Studio emulator).
-   - Physical phone: use your development computer's LAN IP address,
-     with both devices on the same network.
-   - Flutter Web: use a browser-reachable API URL. If frontend and
-     backend are on different origins, configure backend CORS
-     appropriately.
-4. Run on Chrome:
-   flutter run -d chrome
-5. Or run on a connected device:
-   flutter devices
-   flutter run -d <device_id>
-Configuration
-Before running the project, check the following configuration:
-  Configuration           Where to check             Notes
-  MySQL URL               Backend                    Use the correct host,
-application.properties   port, and database name
+- Android Studio or Visual Studio Code
 
-  MySQL username/password Backend environment or     Never commit real
-local config               credentials
+### Step 1: Clone the Repository
 
-  JWT secret              Backend security           Use a strong secret
-configuration              stored outside Git
+```bash
+git clone https://github.com/YOUR_USERNAME/Hazari-App.git
+cd Hazari-App
+```
 
-  API base URL            Flutter API                Must be reachable from
-configuration/service      the selected
-device/browser
+### Step 2: Configure MySQL
 
-  Location permission     Android/iOS app            Required for GPS
-configuration and device   tracking
-settings                   
-Map tile source         Flutter map                Respect the selected
-screen/configuration       tile provider's usage
-policy
-Maps and Location
-The map implementation discussed for this project uses:
-- flutter_map
-- latlong2
-- OpenStreetMap map tiles
-- geolocator for device location
-The standard OpenStreetMap tile endpoint is:
-https://tile.openstreetmap.org/{z}/{x}/{y}.png
-Display attribution to OpenStreetMap contributors in the application.
-The public OpenStreetMap tile service is subject to a usage policy and
-does not provide a guaranteed production service level. For high-traffic
-production use, select a suitable tile provider or host tiles according
-to the provider's terms.
+Create the database:
 
-Browser geolocation generally requires user permission and a secure
-context (HTTPS or localhost).
-Docker Deployment
-Docker Compose can be used to run the backend, database, and optionally
-the Flutter web frontend as separate services.
+```sql
+CREATE DATABASE hazari_db;
+```
 
-A typical container layout is:
-  Service                             Purpose
-  mysql                             MySQL database
+Update your backend `application.yml` with your local database credentials.
 
-  backend                           Spring Boot API
-frontend                          Nginx serving the Flutter web build
-and optionally proxying API
-requests
-Typical commands, once Dockerfiles and docker-compose.yml have been
-configured for this repository:
-docker compose up --build -d
-docker compose ps
-docker compose logs -f
-docker compose down
-Important deployment notes:
-- Inside Docker Compose, the backend should connect to MySQL using the
-  database service name (for example, mysql), not localhost.
-- The Flutter web app must use a browser-accessible API URL or a
-  configured reverse proxy.
-- Keep .env files and secrets out of Git.
-- Persist MySQL data using a Docker volume.
-- Do not expose the database port publicly.
-- Test the Docker configuration against the current source code before
-  relying on it in production.
-Testing
-Recommended verification checklist:
-- [ ] Valid and invalid login behaviour.
-- [ ] Role-based access to protected APIs and screens.
-- [ ] Supplier product creation and input validation.
-- [ ] Supplier stock supply to the selected warehouse.
-- [ ] Inventory quantity updates and supply-history records.
-- [ ] Customer catalogue displays only products with available stock.
-- [ ] Order placement rejects insufficient stock.
-- [ ] Concurrent order requests do not oversell inventory.
-- [ ] Barcode lookup for valid and unknown codes.
-- [ ] GPS permission and location update handling.
-- [ ] Customer delivery tracking displays available location
-  information.
-- [ ] Data remains available after application/container restart.
-Security Notes
-- Never commit database passwords, JWT secrets, access tokens, private
-  keys, keystores, or production .env files.
-- Use environment variables or a secrets manager for sensitive
-  configuration.
-- Keep protected APIs secured with authentication and authorization.
-- Validate all important business rules on the backend; do not trust
-  values supplied only by the Flutter client.
-- Use HTTPS for public deployments.
-- Restrict database access to the backend and trusted administration
-  tools.
-Future Enhancements
-Possible future improvements include:
-- Automated unit, integration, and API tests.
-- Database schema migrations using Flyway or Liquibase.
-- CI/CD pipeline for automated build and test.
-- Production monitoring, structured logs, and health checks.
-- Push notifications for order and delivery events.
-- More detailed operational reports and configurable analytics.
-- Production-grade map tile hosting/provider.
-- Cloud deployment with HTTPS, managed database and secret storage.
-Contributing
+### Step 3: Run Spring Boot Backend
+
+```bash
+cd backend
+mvn clean install
+mvn spring-boot:run
+```
+
+Backend runs on:
+
+```text
+http://localhost:8080
+```
+
+### Step 4: Run Flutter Frontend
+
+Open another terminal:
+
+```bash
+cd frontend
+flutter pub get
+flutter run
+```
+
+To run on Chrome:
+
+```bash
+flutter run -d chrome
+```
+
+**Note:** Update the Flutter API base URL according to your device or emulator network configuration.
+
+## 🔗 API Modules
+
+The backend provides REST API modules for:
+
+- Authentication – `/api/auth`
+- Labour Management – `/api/labour`
+- Contractor Management – `/api/contractor`
+- Image Upload – `/api/upload`
+
+Refer to the source code for individual endpoint methods and request parameters.
+
+## 🚀 Future Enhancements
+
+- Real-time labour location tracking.
+- Map integration for attendance locations.
+- Push notifications.
+- Automated wage calculation.
+- Monthly attendance reports.
+- Advanced analytics dashboard.
+- Improved role-based authorization.
+- Secure image storage.
+
+## 📚 Project Documentation
+
+For detailed technical information, refer to:
+
+📄 **[Complete Hazari App Technical Documentation](docs/PROJECT_DOCUMENTATION.docx)**
+
+The documentation includes:
+
+- System architecture.
+- Backend and frontend implementation.
+- Database design.
+- REST API details.
+- Application workflows.
+- Installation and configuration.
+- Testing and code review findings.
+
+## 💡 Recommendations
+
+The application can be improved by introducing real-time location tracking, automated attendance verification, advanced reporting, secure image management, and improved authentication controls.
+
+These enhancements can make labour management more efficient, transparent, and reliable.
+
+## 👨‍💻 Author
+
+**Indrajeet Yadav**
+
+Full Stack Developer | Java | Spring Boot | Flutter | MySQL
+
+## ⭐ Support
+
+If you find this project useful, consider giving it a ⭐ on GitHub.
+
+---
+
+**Note:** This project is under development. Some features and security improvements may require further implementation before production deployment.
