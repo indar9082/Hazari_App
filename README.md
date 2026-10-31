@@ -244,8 +244,6 @@ Refer to the source code for individual endpoint methods and request parameters.
 
 For detailed technical information, refer to:
 
-📄 **[Complete Hazari App Technical Documentation](docs/PROJECT_DOCUMENTATION.docx)**
-
 The documentation includes:
 
 - System architecture.
